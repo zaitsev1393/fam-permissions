@@ -7,6 +7,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { permissions } from "./../assets/permissions.ts";
+import { Badge } from "@/components/ui/badge";
 
 export function FullTable() {
   const roles = ["Scope", ...permissions.map(({ name }) => name).sort()];
@@ -35,7 +36,7 @@ export function FullTable() {
       ),
     ]);
   const scopedData = Object.fromEntries([...new Set(_scopes)]);
-  console.log(scopedData);
+
   return (
     <>
       <Table>
@@ -52,7 +53,15 @@ export function FullTable() {
               <TableCell className="capitalize">{scope}</TableCell>
               {_roles.map((role, id) => (
                 <TableCell key={id}>
-                  {scopedData[scope][role].join(", ")}
+                  <div className="flex gap-1">
+                    {scopedData[scope][role].map(
+                      (operation: string, id: number) => (
+                        <Badge className="capitalize text-[11px]" key={id}>
+                          {operation}
+                        </Badge>
+                      )
+                    )}
+                  </div>
                 </TableCell>
               ))}
             </TableRow>
