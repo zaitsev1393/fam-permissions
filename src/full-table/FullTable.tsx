@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/table";
 import { permissions } from "./../assets/permissions.ts";
 import { Badge } from "@/components/ui/badge";
+import { useState } from "react";
 
 export function FullTable() {
   const roles = ["Scope", ...permissions.map(({ name }) => name).sort()];
@@ -37,37 +38,75 @@ export function FullTable() {
     ]);
   const scopedData = Object.fromEntries([...new Set(_scopes)]);
 
+  const [currentRole, setCurrentRole] = useState<string>("");
+  const [currentScope, setCurrentScope] = useState<string>("");
+  const [availableOperations, setAvailableOperations] = useState<string>("");
+
+  const setStatus = (role: string, scope: string, operations: string[]) => {
+    setCurrentRole(role);
+    setCurrentScope(scope.charAt(0).toUpperCase() + scope.slice(1));
+    setAvailableOperations(
+      operations
+        .map(
+          (operation: string) =>
+            operation.charAt(0).toUpperCase() + operation.slice(1)
+        )
+        .join(", ") || "None"
+    );
+  };
+
   return (
     <>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            {roles.map((role, id) => (
-              <TableHead key={id}>{role}</TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {scopes.map((scope, id) => (
-            <TableRow key={id}>
-              <TableCell className="capitalize">{scope}</TableCell>
-              {_roles.map((role, id) => (
-                <TableCell key={id}>
-                  <div className="flex gap-1">
-                    {scopedData[scope][role].map(
-                      (operation: string, id: number) => (
-                        <Badge className="capitalize text-[11px]" key={id}>
-                          {operation}
-                        </Badge>
-                      )
-                    )}
-                  </div>
-                </TableCell>
+      <div>
+        <div className="text-base">
+          <div>
+            <span className="font-medium">Role</span>: {currentRole}
+          </div>
+          <div>
+            <span className="font-medium">Scope: </span>
+            {currentScope}
+          </div>
+          <div>
+            <span className="font-medium">Operations: </span>{" "}
+            {availableOperations}
+          </div>
+        </div>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              {roles.map((role, id) => (
+                <TableHead key={id}>{role}</TableHead>
               ))}
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {scopes.map((scope, id) => (
+              <TableRow key={id}>
+                <TableCell className="capitalize">{scope}</TableCell>
+                {_roles.map((role, id) => (
+                  <TableCell
+                    key={id}
+                    className="hover:cursor-pointer"
+                    onMouseEnter={() =>
+                      setStatus(role, scope, scopedData[scope][role])
+                    }
+                  >
+                    <div className="flex gap-1">
+                      {scopedData[scope][role].map(
+                        (operation: string, id: number) => (
+                          <Badge className="capitalize text-[11px]" key={id}>
+                            {operation}
+                          </Badge>
+                        )
+                      )}
+                    </div>
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </>
   );
 }
