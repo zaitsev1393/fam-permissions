@@ -8,8 +8,8 @@ export default function App() {
     <>
       <div className="p-2">
         <div className="flex gap-2">
-          {tabs.map(({ name }) => (
-            <Button>{name}</Button>
+          {tabs.map(({ name }, id) => (
+            <Button key={id}>{name}</Button>
           ))}
         </div>
         <div>{currentTab.name === "Full table" ? <FullTable /> : null}</div>
