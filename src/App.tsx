@@ -1,15 +1,18 @@
 import { Button } from "@/components/ui/button";
+import { FullTable } from "./full-table/FullTable";
 
 export default function App() {
-  const sections = [{ name: "Full table" }, { name: "Tasks" }];
+  const tabs = [{ name: "Full table" }, { name: "Tasks" }];
+  const currentTab = tabs[0];
   return (
     <>
-      <div class="p-2">
+      <div className="p-2">
         <div className="flex gap-2">
-          {sections.map(({ name }) => (
+          {tabs.map(({ name }) => (
             <Button>{name}</Button>
           ))}
         </div>
+        <div>{currentTab.name === "Full table" ? <FullTable /> : null}</div>
       </div>
     </>
   );
