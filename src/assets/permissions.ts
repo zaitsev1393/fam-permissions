@@ -55,7 +55,7 @@ export const permissions = [
       reportTemplate: ["read"],
       document: ["read", "create", "update", "delete"],
       obligation: ["read", "create", "update", "delete"],
-      contact: ["read", "create", "update", "attach", "detach"],
+      contact: ["read", "create", "update", "delete"],
     },
   },
   {
@@ -88,7 +88,7 @@ export const permissions = [
       reportTemplate: ["read"],
       document: ["read", "create", "update", "delete"],
       obligation: ["read", "create", "update", "delete"],
-      contact: ["read", "create", "update", "attach", "detach"],
+      contact: ["read", "create", "update", "delete"],
     },
   },
   {
@@ -101,7 +101,7 @@ export const permissions = [
       task: ["read", "create", "update", "delete"],
       document: ["read", "create", "update", "delete"],
       obligation: ["read", "create", "update", "delete"],
-      contact: ["read", "create", "update", "attach", "detach", "delete"],
+      contact: ["read", "create", "update", "delete"],
       finModel: ["read", "create", "update", "delete"],
       category: ["read", "create", "update", "delete"],
       finApiAccount: ["read", "create", "update", "delete", "attach", "detach"],
