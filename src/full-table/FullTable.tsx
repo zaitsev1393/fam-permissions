@@ -9,6 +9,7 @@ import {
 import { permissions } from "./../assets/permissions.ts";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
+import { ToolTip } from "@/components/custom/tooltip.tsx";
 
 export function FullTable() {
   const roles = ["Scope", ...permissions.map(({ name }) => name).sort()];
@@ -58,19 +59,11 @@ export function FullTable() {
   return (
     <>
       <div>
-        <div className="text-base">
-          <div>
-            <span className="font-medium">Role</span>: {currentRole}
-          </div>
-          <div>
-            <span className="font-medium">Scope: </span>
-            {currentScope}
-          </div>
-          <div>
-            <span className="font-medium">Operations: </span>{" "}
-            {availableOperations}
-          </div>
-        </div>
+        <ToolTip
+          role={currentRole}
+          scope={currentScope}
+          operations={availableOperations}
+        />
         <Table>
           <TableHeader>
             <TableRow>

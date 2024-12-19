@@ -1,5 +1,7 @@
 // import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 import { FullTable } from "./full-table/FullTable";
+import { ToolTip } from "./components/custom/tooltip";
 
 export default function App() {
   const tabs = [{ name: "Full table" }, { name: "Tasks" }];
